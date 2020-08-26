@@ -6,7 +6,7 @@ export default class App extends React.Component<{}, {}> {
     public render() {
         return (
             // element which is going to render the TextBox
-            <TextBoxComponent placeholder="Search Synonym floatLabelType="Auto" />
+            <TextBoxComponent placeholder="Search Synonym" floatLabelType="Auto" />
         );
     }
 };

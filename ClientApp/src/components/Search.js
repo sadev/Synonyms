@@ -23,7 +23,7 @@ var App = /** @class */ (function (_super) {
     App.prototype.render = function () {
         return (
         // element which is going to render the TextBox
-        React.createElement(ej2_react_inputs_1.TextBoxComponent, { placeholder: "First Name", floatLabelType: "Auto" }));
+        React.createElement(ej2_react_inputs_1.TextBoxComponent, { placeholder: "Search Synonym", floatLabelType: "Auto" }));
     };
     return App;
 }(React.Component));
