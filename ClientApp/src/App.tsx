@@ -5,6 +5,7 @@ import Home from './components/Home';
 import Counter from './components/Counter';
 import FetchData from './components/FetchData';
 import Administration from './components/Administration';
+import Search from './components/Search';
 
 import './custom.css'
 import '../node_modules/@syncfusion/ej2-base/styles/material.css';
@@ -23,5 +24,6 @@ export default () => (
         <Route path='/counter' component={Counter} />
         <Route path='/fetch-data/:startDateIndex?' component={FetchData} />
         <Route path='/administration' component={Administration} />
+        <Route path='/search' component={Search} />
     </Layout>
 );

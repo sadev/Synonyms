@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Synonymous.DataContext;
+using Synonymous.Middleware;
 
 namespace Synonymous
 {
@@ -39,10 +40,8 @@ namespace Synonymous
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-            }
+
+            app.UseMiddleware(typeof(SynonymExceptionHandler));
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
