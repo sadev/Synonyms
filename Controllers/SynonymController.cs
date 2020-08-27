@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Internal;
 using Synonymous.DataContext;
 using Synonymous.Models;
+using Synonymous.Utils;
 
 namespace Synonymous.Controllers
 {
@@ -38,6 +40,13 @@ namespace Synonymous.Controllers
         [HttpPost]
         public void Post(SynonymModel model)
         {
+            if (model.Keyword.ToLower() == model.Synonym.ToLower()) {
+                throw new SynonymException($"Keyword and Synonym can not be same word.");
+            }
+
+            if (ValidateSynonymPair(model)) {
+                throw new SynonymException($"'{model.Keyword}' and '{model.Synonym}' synonym pair already exists.");
+            }
             //Determine the next ID
             var id = _context.Synonyms.Select(x => x.Id).Max() + 1; //In memory DB...that's why.
             model.Id = id;
@@ -49,12 +58,19 @@ namespace Synonymous.Controllers
         [HttpPut]
         public void Put(SynonymModel model)
         {
+            if (model.Keyword.ToLower() == model.Synonym.ToLower()) {
+                throw new SynonymException($"Keyword and Synonym can not be same word.");
+            }
+
+            if (ValidateSynonymPair(model)) {
+                throw new SynonymException($"Keyword {model.Keyword} and Synonym {model.Synonym} pair already exists.");
+            }
+
             _context.Synonyms.Update(model);
             _context.SaveChanges();
         }
 
         [HttpDelete("{id}")]
-
         public void Delete(int id)
         {
             var synonym = _context.Synonyms.Find(id);
@@ -63,6 +79,11 @@ namespace Synonymous.Controllers
                 _context.Synonyms.Remove(synonym);
                 _context.SaveChanges();
             }
+        }
+
+        private bool ValidateSynonymPair(SynonymModel model) {
+            return _context.Synonyms.Any(s => s.Keyword == model.Keyword && s.Synonym == model.Synonym) ||
+                   _context.Synonyms.Any(s => s.Keyword == model.Synonym && s.Synonym == model.Keyword);
         }
     }
 }
