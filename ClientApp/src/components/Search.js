@@ -28,22 +28,12 @@ var Search = /** @class */ (function (_super) {
         fetch("search/" + this.search.value)
             .then(function (response) { return response.json(); })
             .then(function (data) {
-            console.log(_this.chipList.chips);
-            if (_this.chipList.chips.length > 0) {
-                for (var i = 0; i < _this.chipList.chips.length; i++) {
-                    _this.chipList.remove(i);
-                }
-            }
+            _this.chipList.chips = [];
             _this.chipList.add(data);
         });
     };
     Search.prototype.componentWillUnmount = function () {
-        //if (this.chipList.chips.length > 0) {
-        //    for (var i = 0; i < this.chipList.chips.length; i++) {
-        //        this.chipList.remove(i);
-        //    }
-        //} 
-        document.getElementById("resultList").innerHTML = '';
+        this.chipList.chips = [];
     };
     Search.prototype.render = function () {
         var _this = this;

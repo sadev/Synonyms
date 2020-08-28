@@ -14,24 +14,13 @@ export default class Search extends React.Component<{}, {}> {
         fetch(`search/${this.search.value}`)
             .then(response => response.json() as Promise<[]>)
             .then(data => {
-                console.log(this.chipList.chips);
-                if (this.chipList.chips.length > 0) {
-                    for (var i = 0; i < this.chipList.chips.length; i++) {
-                        this.chipList.remove(i);
-                    }  
-                }       
+                this.chipList.chips = [];
                 this.chipList.add(data);
             });        
     }
 
     public componentWillUnmount() {
-        //if (this.chipList.chips.length > 0) {
-        //    for (var i = 0; i < this.chipList.chips.length; i++) {
-        //        this.chipList.remove(i);
-        //    }
-        //} 
-        document.getElementById("resultList").innerHTML = '';
-
+        this.chipList.chips = [];
     }
 
     public render() {
