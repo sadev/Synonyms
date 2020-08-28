@@ -16,6 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var ej2_data_1 = require("@syncfusion/ej2-data");
 var ej2_react_grids_1 = require("@syncfusion/ej2-react-grids");
 var ej2_react_grids_2 = require("@syncfusion/ej2-react-grids");
+var ej2_popups_1 = require("@syncfusion/ej2-popups");
 var React = require("react");
 var Administration = /** @class */ (function (_super) {
     __extends(Administration, _super);
@@ -24,20 +25,20 @@ var Administration = /** @class */ (function (_super) {
         _this.editOptions = { allowEditing: true, allowAdding: true, allowDeleting: true, mode: 'Normal' };
         _this.toolbarOptions = ['Add', 'Edit', 'Delete', 'Update', 'Cancel'];
         _this.pageOptions = {
-            pageSize: 3, pageSizes: true
+            pageSize: 10, pageSizes: true
         };
         _this.data = new ej2_data_1.DataManager({
             adaptor: new ej2_data_1.WebApiAdaptor,
             url: 'synonym'
         });
         _this.onActionFailure = function (e) {
-            var span = document.createElement('span');
-            if (_this.grid) {
-                debugger;
-                _this.grid.element.parentNode.insertBefore(span, _this.grid.element);
-                span.style.color = "#FF0000";
-                span.innerHTML = JSON.parse(e.error[0].error.response).message;
-            }
+            ej2_popups_1.DialogUtility.alert({
+                animationSettings: { effect: 'Zoom' },
+                closeOnEscape: true,
+                content: JSON.parse(e.error[0].error.response).message,
+                showCloseIcon: true,
+                title: 'Error Message'
+            });
         };
         return _this;
     }

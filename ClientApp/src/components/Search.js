@@ -18,32 +18,46 @@ var ej2_base_1 = require("@syncfusion/ej2-base");
 var ej2_react_buttons_1 = require("@syncfusion/ej2-react-buttons");
 var React = require("react");
 ej2_base_1.enableRipple(true);
-var App = /** @class */ (function (_super) {
-    __extends(App, _super);
-    function App() {
+var Search = /** @class */ (function (_super) {
+    __extends(Search, _super);
+    function Search() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    App.prototype.btnClick = function () {
+    Search.prototype.btnClick = function () {
         var _this = this;
         fetch("search/" + this.search.value)
             .then(function (response) { return response.json(); })
             .then(function (data) {
+            console.log(_this.chipList.chips);
+            if (_this.chipList.chips.length > 0) {
+                for (var i = 0; i < _this.chipList.chips.length; i++) {
+                    _this.chipList.remove(i);
+                }
+            }
             _this.chipList.add(data);
         });
     };
-    App.prototype.render = function () {
+    Search.prototype.componentWillUnmount = function () {
+        //if (this.chipList.chips.length > 0) {
+        //    for (var i = 0; i < this.chipList.chips.length; i++) {
+        //        this.chipList.remove(i);
+        //    }
+        //} 
+        document.getElementById("resultList").innerHTML = '';
+    };
+    Search.prototype.render = function () {
         var _this = this;
         return (React.createElement("div", { className: "container" },
             React.createElement("div", { className: "row" },
-                React.createElement("div", { className: "col-8" },
+                React.createElement("div", { className: "col-10" },
                     React.createElement(ej2_react_inputs_1.TextBoxComponent, { id: "search", name: "search", ref: function (scope) { _this.search = scope; }, placeholder: "Search Synonym", floatLabelType: "Auto" })),
-                React.createElement("div", { className: "col-4 search-button" },
+                React.createElement("div", { className: "col-2 search-button" },
                     React.createElement(ej2_react_buttons_1.ButtonComponent, { cssClass: 'e-success', onClick: this.btnClick.bind(this) }, "Search"))),
-            React.createElement("div", { className: "row chip-list" },
+            React.createElement("div", { id: "resultList", className: "row chip-list" },
                 React.createElement(ej2_react_buttons_1.ChipListComponent, { id: "chip-avatar", ref: function (scope) { _this.chipList = scope; }, enableDelete: true }))));
     };
-    return App;
+    return Search;
 }(React.Component));
-exports.default = App;
+exports.default = Search;
 ;
 //# sourceMappingURL=Search.js.map

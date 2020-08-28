@@ -58,11 +58,11 @@ namespace Synonymous.Controllers
         [HttpPut]
         public void Put(SynonymModel model)
         {
-            if (model.Keyword.ToLower() == model.Synonym.ToLower()) {
+            if (model.Keyword.ToLower() == model.Synonym.ToLower() && _context.Synonyms.Any(s => s.Id == model.Id)) {
                 throw new SynonymException($"Keyword and Synonym can not be same word.");
             }
 
-            if (ValidateSynonymPair(model)) {
+            if (ValidateSynonymPair(model) && _context.Synonyms.Any(s=>s.Id==model.Id)) {
                 throw new SynonymException($"Keyword {model.Keyword} and Synonym {model.Synonym} pair already exists.");
             }
 

@@ -23,7 +23,8 @@
     "@syncfusion/ej2-data": "18.2.54",
     "@syncfusion/ej2-react-inputs": "18.2.54",
     "@syncfusion/ej2-base": "18.2.55",
-    "@syncfusion/ej2-react-buttons": "18.2.54"
+    "@syncfusion/ej2-react-buttons": "18.2.54",
+    "@syncfusion/ej2-popups": "18.2.54"
   },
   "devDependencies": {
     "@types/history": "4.7.3",
